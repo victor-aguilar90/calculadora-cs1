@@ -1,56 +1,92 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calculadora1
+namespace calculadora
 {
     internal class Program
     {
+        public class Calculadora
+        {
+            public double Soma( double num1, double num2) 
+            { 
+                return num1 + num2; 
+            }
+
+            public double Subtracao( double num1, double num2) 
+            { 
+                return num1 - num2; 
+            }
+
+            public double Multiplicacao( double num1, double num2)
+            {
+                return num1 * num2;
+            }
+
+            public double Divide( double num1, double num2) 
+            {  
+                if (num2 == 0) {
+                    Console.WriteLine("Erro!");
+                    return double.NaN;
+                
+                } else
+                {
+                    return num1 / num2;
+                }
+     
+            }
+        }
         static void Main(string[] args)
         {
-            int num1, num2;
+            Calculadora calculadora = new Calculadora();
 
-            Console.WriteLine("Digite qual operação deseja fazer +, -, *, ");
-            string operador = Console.ReadLine();
+            Console.WriteLine("Escolha uma operação: \n 1 - adição \n 2 - Subtração \n 3 - Multiplicação \n 4 - Divisão");
+            int operacao = int.Parse(Console.ReadLine());
+
+            while (operacao > 4 || operacao == 0) {
+                Console.WriteLine("Escolha uma operação válida!");
+                operacao = int.Parse(Console.ReadLine());
+            }
+
+
 
             Console.WriteLine("Digite um número: ");
-            num1 = int.Parse(Console.ReadLine());
+            double numero1 = double.Parse(Console.ReadLine());
 
             Console.WriteLine("Digite outro número: ");
-            num2 = int.Parse(Console.ReadLine());
+            double numero2 = double.Parse(Console.ReadLine());
 
-            switch (operador)
+            switch (operacao)
             {
-                case "+":
-                    Console.WriteLine("O resultado é igual a {0}", num1 + num2);
+                case 1:
+                    Console.WriteLine("O resultado da soma é igual à {0}", calculadora.Soma(numero1, numero2));
 
                 break;
 
-                case "-":
-                    Console.WriteLine("O resultado é igual a {0}", num1 - num2);
+                case 2:
+                    Console.WriteLine("O resultado da subtração é igual à {0}", calculadora.Subtracao(numero1, numero2));
+                    
                 break;
 
-                case "*":
-                    Console.WriteLine("O resultado é igual a {0}", num1 * num2);
+                case 3:
+                    Console.WriteLine("O resultado da multiplicação é igual à {0}", calculadora.Multiplicacao(numero1, numero2));
+                
                 break;
 
-                case "/":
+                case 4:
+                    Console.WriteLine("O resultado da divisão é igual à {0}", calculadora.Divide(numero1, numero2));
 
-                    if (num2 == 0)
-                    {
-                        Console.WriteLine("Não foi possível fazer a operação!");
-                    } else
-                    {
-                        Console.WriteLine("O resultado é igual a {0}", num1 / num2);
-                    }
-
-                    break;
+                break;
 
             }
 
-           
+            
+
+            
+            
         }
     }
 }
